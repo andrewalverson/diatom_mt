@@ -25,6 +25,10 @@ my $with_data_color = "black";
 my $no_data_color   = "gray";
 my @file; #structure --> ( [$id, [@introns], [@sequence]], [$id, [@introns], [@sequence]], [$id, [@introns], [@sequence]] )
 
+my %positions;   # stores a non-redundant set of intron insertion sites
+my $top = $y;    # position of first gene line, for drawing vertial intron-position lines
+my $bottom;      # position of last gene line, for drawing vertial intron-position lines
+
 my $outfile = $INFILE;
 $outfile =~ s/\..*$//;
 $outfile .= ".ps";
@@ -47,16 +51,24 @@ close OUT;
 
 # print filename header
 if( $HEADER ){
-  open( OUT, ">$outfile" ) || die "Can't open $outfile: $!\n";
+  open( OUT, ">>$outfile" ) || die "Can't open $outfile: $!\n";
+  print OUT "% HEADER TEXT\n";
   print OUT "/Arial findfont\n";
   print OUT "12 scalefont\n";
   print OUT "setfont\n";
   print OUT "0 setgray\n";
   
   print OUT $left_margin, " ", $y, " moveto\n";
-  print OUT "($header) show\n";
+  print OUT "($header) show\n\n";
   $y -= 40;
+  close OUT;
 }
+
+
+# print comment stating that sequence/intron drawing starts here
+open( OUT, ">>$outfile" ) || die "Can't open $outfile: $!\n";
+print OUT "\n% SEQUENCE/INTRON PRINTING STARTS HERE\n\n";
+close OUT;
 
 # iterate over all sequences in the file -- the real business starts here
 for( my $i = 0; $i < @file; $i++ ){
@@ -95,16 +107,31 @@ for( my $i = 0; $i < @file; $i++ ){
   # print "$left_margin\n$y\n$ranges[0][0]\n"
 
   #map introns
-  mapIntrons( $feature_offset, $y, $file[$i][1], $file[$i][2], $outfile );
-  
+  mapIntrons( $feature_offset, $y, $file[$i][1], $file[$i][2], $outfile, \%positions );
+
   $y -= $space_between_sequences;
 
 }
 
-#draw scale bar
+# print comment stating that sequence/intron drawing ends here, vertical line drawing begins here
+open( OUT, ">>$outfile" ) || die "Can't open $outfile: $!\n";
+print OUT "\n% SEQUENCE/INTRON PRINTING ENDS HERE\n";
+print OUT "% BEGIN PRINTING VERTICAL LINES\n\n";
+close OUT;
+
+# draw vertical lines
+vertial_lines( $feature_offset, $top, $y += $space_between_sequences, \%positions );
+
+# print comment stating that sequence/intron drawing ends here, vertical line drawing begins here
+open( OUT, ">>$outfile" ) || die "Can't open $outfile: $!\n";
+print OUT "\n% VERTICAL LINE PRINTING ENDS HERE\n";
+print OUT "% BEGIN PRINTING SCALE BAR\n\n";
+close OUT;
+
+# draw scale bar
 scaleBar( $y, $outfile );
 
-#covert to pdf
+# covert to pdf
 system( "ps2pdf $outfile $pdf" );
 
 exit;
@@ -198,7 +225,7 @@ sub draw_gene {
 }
 ########################################################################################################################
 sub mapIntrons{
-  my( $left_margin, $y, $introns, $sequence, $outfile ) = @_;
+  my( $left_margin, $y, $introns, $sequence, $outfile, $positions ) = @_;
   my $intron_offset = $SCALE * 0.5; #put intron marker midway between exon coordinates
   my $missing;
 
@@ -218,7 +245,9 @@ sub mapIntrons{
     for( my $j = 0; $j < $introns->[$i]; $j++ ){
       $sequence->[$j] eq "-" and $introns->[$i]+=1;
     }
-    # print $introns->[$i] . "\n";
+    
+    # store unique intron positions in a hash, which we'll use to draw the vertical lines marking the insertion site of each intron
+    $positions->{$introns->[$i]} = $introns->[$i];
     
     print OUT "newpath\n";
     print OUT $left_margin + ($SCALE * ($introns->[$i] + 1) + $intron_offset), " ", $y+1, " moveto\n";
@@ -236,7 +265,33 @@ sub mapIntrons{
     }
     $missing = undef;
   }
+  
   close OUT;
+
+}
+########################################################################################################################
+sub vertial_lines{
+  my( $left_margin, $top, $bottom, $positions ) = @_;
+  my $intron_offset = $SCALE * 0.5; #put intron marker midway between exon coordinates
+
+  open( OUT, ">>$outfile" ) || die "Can't open $outfile: $!\n";
+
+  print OUT "1 setlinewidth\n";
+  print OUT "0.6 setgray\n";
+  print OUT "0.25 setlinewidth\n";
+
+  # loop over intron positions
+  foreach my $intron ( keys %$positions ){
+    print $positions->{$intron}, "\n";
+    print OUT "newpath\n";
+    print OUT $left_margin + ($SCALE * ($positions->{$intron} + 1) + $intron_offset), " ", $top, " moveto\n";
+    print OUT $left_margin + ($SCALE * ($positions->{$intron} + 1) + $intron_offset), " ", $bottom, " lineto\n";
+    print OUT "stroke\n";
+    # print OUT "closepath\n";
+  }
+
+  close OUT;
+  
 }
 ########################################################################################################################
 sub scaleBar{
@@ -285,14 +340,14 @@ sub writeName{
 ########################################################################################################################
 sub parseArgs{
 
-  my $usage = "\nUsage: $0 [options] cDNA.fasta
+  my $usage = "\nUsage: $0 [options] dna_alignment.fasta
    
    options
           --scale - proportion to scale width of gene line (default: none)
           --bar_width - width of scale bar (default: 100 nt)
           --header    - print header at top of page (filename minus file extension) (default: yes)
 
-   NOTE: FASTA header can have list of intron coordinates (e.g., \">Citrullus 500 600 700m\"); introns are mapped as filled triangles and missing introns (e.g. 700m) are mapped as open triangles; it is assumed that intron locations do not consider any gap characters that might exist in the alignment; that is, intron locations are adjusted based on the number of gap characters (\"-\") that precede them
+   NOTE: FASTA header can have list of intron coordinates (e.g., \">Citrullus 500 600 700m\"); introns are mapped as filled triangles and missing introns (e.g. 700m) are mapped as open triangles; it is assumed that intron locations do not consider any gap characters that might exist in the alignment; that is, the script will adjust intron locations to account for gap characters (\"-\") that precede them in that sequence
 
 
 \n\n";
