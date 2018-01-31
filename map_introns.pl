@@ -9,6 +9,7 @@ use Getopt::Long;
 my $SCALE  = 1;
 my $HEADER = 1;
 my $SCALEBAR_WIDTH = 100;
+my $PS2PDF = 1;
 
 parseArgs();
 
@@ -132,7 +133,7 @@ close OUT;
 scaleBar( $y, $outfile );
 
 # covert to pdf
-system( "ps2pdf $outfile $pdf" );
+$PS2PDF and system( "ps2pdf $outfile $pdf" );
 
 exit;
 ######################################################SUBROUTINES######################################################
@@ -346,9 +347,10 @@ sub parseArgs{
           --scale - proportion to scale width of gene line (default: none)
           --bar_width - width of scale bar (default: 100 nt)
           --header    - print header at top of page (filename minus file extension) (default: yes)
+          --ps2pdf    - call ps2pdf to convert postscript to pdf (default: yes)
 
    NOTE: FASTA header can have list of intron coordinates (e.g., \">Citrullus 500 600 700m\"); introns are mapped as filled triangles and missing introns (e.g. 700m) are mapped as open triangles; it is assumed that intron locations do not consider any gap characters that might exist in the alignment; that is, the script will adjust intron locations to account for gap characters (\"-\") that precede them in that sequence
-
+   NOTE: The script calls ps2pdf (https://www.ghostscript.com/) to convert the postscript file into a pdf
 
 \n\n";
 	
@@ -358,6 +360,7 @@ sub parseArgs{
 	 'scale=s'      => \$SCALE,
 	 'bar_width=s'  => \$SCALEBAR_WIDTH,
          'header!'      => \$HEADER,
+         'ps2pdf!'      => \$PS2PDF,
 	);
   
   $ARGV[0] or die $usage;
