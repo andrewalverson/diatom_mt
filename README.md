@@ -83,6 +83,11 @@ optional arguments:
 - A FASTA file of the subject matches that meet the specified qcovs and e-value cutoffs
 - If the same subject has multiple hsp's, those hsp's are combined into a single large subject sequence. This can have unintended consequences if, for example, there are many distantly spaced (i.e., different) hsp's rather than a single match that was split into multiple hsp's
 
+#### Notes
+- The script reads the following BLAST format: `-outfmt '6 std qcovs'`
+
 #### Dependencies
 - [E-utilities](https://www.ncbi.nlm.nih.gov/books/NBK179288/) installed and in your PATH
 - Python 3
+
+
