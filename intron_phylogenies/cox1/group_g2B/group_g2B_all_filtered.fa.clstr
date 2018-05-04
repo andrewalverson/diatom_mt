@@ -1,0 +1,30 @@
+>Cluster 0
+0	2454nt, >Nannochloropsis_oculata_intron_cox1_g2.1_B... *
+1	2454nt, >Nannochloropsis_oculata_intron_cox1_g2.1_B... at +/100.00%
+>Cluster 1
+0	2352nt, >HQ840789.1:19405-21756... *
+1	2352nt, >Phaeodactylum_tricornutum_intron_cox1_g2.2_B... at +/100.00%
+>Cluster 2
+0	2344nt, >KR149143.1:c39297-36954... *
+1	2344nt, >Pseudo-nitzschia_multiseries_intron_cox1_g2.3_B... at +/100.00%
+>Cluster 3
+0	2342nt, >AB445403.1:442-2783... *
+>Cluster 4
+0	2339nt, >AB445418.1:2871-5209... *
+>Cluster 5
+0	2339nt, >Chattonella_marina_mt_intron_cox1_g2.2_B... *
+>Cluster 6
+0	2338nt, >DQ186202.1:c2833-496... *
+1	2338nt, >Thalassiosira_pseudonana_intron_cox1_g2.1_B... at -/100.00%
+>Cluster 7
+0	2338nt, >Cylindrotheca_closterium_intron_cox1_g2.1_B... *
+1	2338nt, >Cylindrotheca_closterium_intron_cox1_g2.1_B... at +/100.00%
+>Cluster 8
+0	2331nt, >JN378734.1:2541-4871... *
+1	2331nt, >Kryptoperidinium_foliaceum_mt_intron_cox1_g2.1_B... at +/100.00%
+>Cluster 9
+0	2325nt, >KX343079.1:41006-43330... *
+1	2322nt, >Navicula_ramosissima_intron_cox1_g2.1_B_upstream... at +/100.00%
+>Cluster 10
+0	2314nt, >Psammoneis_japonica_intron_cox1_g2.1_B_upstream... *
+1	2314nt, >Psammoneis_japonica_intron_cox1_g2.1_B_upstream... at +/100.00%

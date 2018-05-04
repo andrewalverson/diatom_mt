@@ -1,0 +1,16 @@
+>Cluster 0
+0	2529nt, >AB281608.1:c2529-1... *
+>Cluster 1
+0	2511nt, >Psammoneis_japonica_intron_cox1_g2.5_F... *
+1	2511nt, >Psammoneis_japonica_intron_cox1_g2.5_F... at +/100.00%
+>Cluster 2
+0	2492nt, >KR149143.1:c42100-39609... *
+1	2492nt, >Pseudo-nitzschia_multiseries_intron_cox1_g2.2_F... at +/100.00%
+>Cluster 3
+0	2468nt, >Asterionella_formosa_intron_cox1_g2.1_F... *
+1	2468nt, >Asterionella_formosa_intron_cox1_g2.1_F... at +/100.00%
+>Cluster 4
+0	2468nt, >AB037974.1:118-2585... *
+>Cluster 5
+0	2310nt, >Thalassiosira_nordenskioeldii_intron_cox1_g2.2_F... *
+1	2310nt, >Thalassiosira_nordenskioeldii_intron_cox1_g2.2_F... at +/100.00%
