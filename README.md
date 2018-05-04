@@ -1,8 +1,16 @@
-# Scripts used for analyses of diatom mitochondrial genomes
+# Data and scripts used for analyses of diatom mitochondrial genomes
 
 Recurrent loss, horizontal transfer, and the obscure origins of mitochondrial introns in diatoms (Bacillariophyta)
 
 Wilson X. Guillory, Anastasiia Onyshchenko, Elizabeth C. Ruck, Matthew Parks, Teofil Nakov, Norman J. Wickett, and Andrew J. Alverson
+
+Data
+======
+- Genome sequences are available in GenBank under accessions MG148339, MG182051, MG271845, MG271846, and MG271847
+- Alignments and workflows for phylogenetic trees are available in `intron_phylogenies/cox1` and `intron_phylogenies/rnl`
+
+Scripts
+======
 
 ## Drawing intron maps (Figs. 1 and 3)
 ### `map_introns.pl`
