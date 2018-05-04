@@ -1,0 +1,1 @@
+for i in *.fa-gb; do iqtree-omp.exe -s $i -m MFP -bb 10000 -nt AUTO; done 
