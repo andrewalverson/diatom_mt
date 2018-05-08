@@ -1,0 +1,17 @@
+locus,intron_exon,name,pw_comp,similarity,shape
+cox1_A,intron,cox1_g2_A,Chat-C_crypt,66.00,circle
+cox1_A,intron,cox1_g2_A,Chat-Ulnaria,58.69,circle
+cox1_A,intron,cox1_g2_A,Chat-Navicula,71.00,circle
+cox1_A,exon,cox1_exon_A,Chat-C_crypt,75.73,inverted_triangle
+cox1_A,exon,cox1_exon_A,Chat-Ulnaria,72.68,inverted_triangle
+cox1_A,exon,cox1_exon_A,Chat-Navicula,75.88,inverted_triangle
+cox1_B,intron,cox1_g2_B,Chat-Cylindro,94.57,circle
+cox1_B,intron,cox1_g2_B,Chat-C_nana,93.63,circle
+cox1_B,intron,cox1_g2_B,Chat-Krypto,85.64,circle
+cox1_B,intron,cox1_g2_B,Chat-Pseudonitz,83.56,circle
+cox1_B,intron,cox1_g2_B,Chat-Phaeo,73.96,circle
+cox1_B,exon,cox1_exon_B,Chat-Cylindro,76.75,inverted_triangle
+cox1_B,exon,cox1_exon_B,Chat-C_nana,74.52,inverted_triangle
+cox1_B,exon,cox1_exon_B,Chat-Krypto,74.25,inverted_triangle
+cox1_B,exon,cox1_exon_B,Chat-Pseudonitz,74.98,inverted_triangle
+cox1_B,exon,cox1_exon_B,Chat-Phaeo,72.08,inverted_triangle

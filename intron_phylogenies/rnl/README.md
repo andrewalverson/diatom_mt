@@ -23,13 +23,16 @@
 1. Remove redundant sequences from the full set query and subject sequences
 `cd-hit-est -i group_g2E_all.fa -o group_g2E_all_filtered.fa -c 1 -d 20000`
 
+>Manually removed the following sequence because it was identical and shorter than 'Navicula_ramosissima_intron_rnl_g2_2'
+>'KX343079.1:c19329-16911_Navicula_ramosissima_voucher_10.TA439.Nram.mt_mitochondrion,_complete_genome'
+
 ### Final sequence counts for each _rnl_ intron group
 `for i in group_g*/*_all_filtered.fa;do echo '| ' $i '|' | tr -d '\n' | perl -pwe 's/\s{2,}/ /';grep '>' $i | wc -l | perl -pwe 's/\s{2,}/ /' | tr -d '\n';echo " |";done`
 
 |          Group          | Num sequences |
 |-------------------------------------|---|
 | group_g1/group_g1_all_filtered.fa   | 1 |
-| group_g2A/group_g2A_all_filtered.fa | 6 |
+| group_g2A/group_g2A_all_filtered.fa | 5 |
 | group_g2B/group_g2B_all_filtered.fa | 4 |
 | group_g2C/group_g2C_all_filtered.fa | 1 |
 | group_g2D/group_g2D_all_filtered.fa | 1 |
